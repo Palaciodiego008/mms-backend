@@ -1,8 +1,4 @@
 # mms-model
-Absolutely, here's an explanation you can add to your README to describe the functionality of the `mmsModel` code in your Go program:
-
----
-
 ## Multi-Server Queueing Model (MMS) in Go
 
 This code implements the Multi-Server Queueing Model (MMS) in the Go programming language. The MMS model is a mathematical tool used to analyze queueing systems with multiple servers, as in scenarios where multiple servers serve a queue of requests.
