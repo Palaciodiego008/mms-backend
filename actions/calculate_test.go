@@ -1,16 +1,16 @@
 package actions_test
 
 import (
-	"bytes"
 	"mms-project/actions"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
 func TestCalculateHandler(t *testing.T) {
-	payload := "2.0\n3.0\n4.0\n"
-	req, err := http.NewRequest("GET", "/calculate", bytes.NewBufferString(payload))
+	payload := `{"lambda": 2.0, "mu": 3.0, "s": 4.0}`
+	req, err := http.NewRequest("POST", "/calculate", strings.NewReader(payload))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -30,6 +30,6 @@ func TestCalculateHandler(t *testing.T) {
 		"Average Time a Customer Spends in the Queue (Wq): 0.583333\n"
 
 	if rr.Body.String() != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v", rr.Body.String(), expected)
+		t.Errorf("handler returned unexpected body:\n got:\n%s\n want:\n%s", rr.Body.String(), expected)
 	}
 }
