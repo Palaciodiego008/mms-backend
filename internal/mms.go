@@ -1,8 +1,8 @@
-package main
+package internal
 
 import "math"
 
-func mmsModel(lambda, mu, s float64) (L, Lq, W, Wq float64) {
+func MmsModel(lambda, mu, s float64) (L, Lq, W, Wq float64) {
 	rho := lambda / (mu * s)
 	p0 := 1.0 / (1.0 + sumP0(lambda, mu, s))
 
