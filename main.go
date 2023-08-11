@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"mms-project/actions"
 	"net/http"
 
@@ -10,8 +11,8 @@ import (
 func main() {
 	r := chi.NewRouter()
 
-	r.Get("/calculate", actions.CalculateHandler)
+	r.Post("/calculate", actions.CalculateHandler)
 
+	fmt.Println("Server running on port 8080")
 	http.ListenAndServe(":8080", r)
-
 }
