@@ -20,6 +20,7 @@ func main() {
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: true,
+		MaxAge:           300,
 	})
 
 	// Use the CORS middleware
@@ -32,5 +33,5 @@ func main() {
 	r.Post("/calculate", actions.CalculateHandler)
 
 	fmt.Println("Server running on port 8080")
-	http.ListenAndServe(":8080", r)
+	http.ListenAndServe(":3000", r)
 }

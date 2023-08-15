@@ -2,7 +2,6 @@ package actions
 
 import (
 	"encoding/json"
-	"fmt"
 	"mms-project/internal"
 	"net/http"
 )
@@ -14,6 +13,7 @@ type InputData struct {
 }
 
 func CalculateHandler(w http.ResponseWriter, r *http.Request) {
+	// Checking if the request method is POST
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
@@ -34,8 +34,27 @@ func CalculateHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	L, Lq, W, Wq := internal.MmsModel(inputData.Lambda, inputData.Mu, inputData.S)
-	fmt.Fprintf(w, "Average Number of Customers in the System (L): %.6f\n", L)
-	fmt.Fprintf(w, "Average Number of Customers in the Queue (Lq): %.6f\n", Lq)
-	fmt.Fprintf(w, "Average Time a Customer Spends in the System (W): %.6f\n", W)
-	fmt.Fprintf(w, "Average Time a Customer Spends in the Queue (Wq): %.6f\n", Wq)
+
+	// Create a map to hold the results
+	results := map[string]float64{
+		"L":  L,
+		"Lq": Lq,
+		"W":  W,
+		"Wq": Wq,
+	}
+
+	// Convert the results map to JSON
+	responseJSON, err := json.Marshal(results)
+	if err != nil {
+		http.Error(w, "Error creating JSON response", http.StatusInternalServerError)
+		return
+	}
+
+	// Set the appropriate headers
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	// Write the JSON response to the writer
+	w.WriteHeader(http.StatusOK)
+	w.Write(responseJSON)
 }
