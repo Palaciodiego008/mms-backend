@@ -24,11 +24,7 @@ func TestCalculateHandler(t *testing.T) {
 		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusOK)
 	}
 
-	expected := "Average Number of Customers in the System (L): 0.666737\n" +
-		"Average Number of Customers in the Queue (Lq): 0.000071\n" +
-		"Average Time a Customer Spends in the System (W): 0.333369\n" +
-		"Average Time a Customer Spends in the Queue (Wq): 0.000035\n"
-
+	expected := `{"L":0.6667374130409149,"Lq":0.00007074637424831977,"W":0.33336870652045747,"Wq":0.000035373187124159885}`
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body:\n got:\n%s\n want:\n%s", rr.Body.String(), expected)
 	}
