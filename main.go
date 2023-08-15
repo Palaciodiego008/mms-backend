@@ -5,11 +5,29 @@ import (
 	"mms-project/actions"
 	"net/http"
 
+	"github.com/go-chi/cors"
+
+	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 )
 
 func main() {
 	r := chi.NewRouter()
+	// Configure CORS settings
+	corsOptions := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: true,
+	})
+
+	// Use the CORS middleware
+	r.Use(corsOptions.Handler)
+
+	// Use some basic middleware
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
 
 	r.Post("/calculate", actions.CalculateHandler)
 
