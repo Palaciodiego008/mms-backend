@@ -16,7 +16,7 @@ func main() {
 	// Configure CORS settings
 	corsOptions := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedMethods:   []string{http.MethodPost},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: true,
