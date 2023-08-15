@@ -33,5 +33,5 @@ func main() {
 	r.Post("/calculate", actions.CalculateHandler)
 
 	fmt.Println("Server running on port 8080")
-	http.ListenAndServe(":3000", r)
+	http.ListenAndServe(":8080", r)
 }
