@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	port := 8080
 	r := chi.NewRouter()
 	// Configure CORS settings
 	corsOptions := cors.New(cors.Options{
@@ -31,7 +32,9 @@ func main() {
 	r.Use(middleware.Recoverer)
 
 	r.Post("/calculate", actions.CalculateHandler)
+	r.Post("/general-stats", actions.GeneralStatsHandler) // New endpoint for general statistics
+	r.Post("/experiment", actions.ExperimentHandler)      // New endpoint for parameter experiments
 
 	fmt.Println("Server running on port 8080")
-	http.ListenAndServe(":8080", r)
+	http.ListenAndServe(fmt.Sprintf(":%d", port), r)
 }
